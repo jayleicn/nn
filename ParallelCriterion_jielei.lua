@@ -1,4 +1,4 @@
-local ParallelCriterion_jielei, parent = torch.class('nn.ParallelCriterion_jielei', 'nn.Criterion')
+local ParallelCriterion_jielei, parent = torch.class('nn.ParallelCriterion_jielei', 'nn.Criterion_jielei')
 
 function ParallelCriterion_jielei:__init(repeatTarget)
    parent.__init(self)
