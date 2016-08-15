@@ -1,6 +1,6 @@
-local ParallelCriterion, parent = torch.class('nn.ParallelCriterion', 'nn.Criterion')
+local ParallelCriterion_jielei, parent = torch.class('nn.ParallelCriterion_jielei', 'nn.Criterion')
 
-function ParallelCriterion:__init(repeatTarget)
+function ParallelCriterion_jielei:__init(repeatTarget)
    parent.__init(self)
    self.criterions = {}
    self.weights = {}
@@ -8,7 +8,7 @@ function ParallelCriterion:__init(repeatTarget)
    self.repeatTarget = repeatTarget
 end
 
-function ParallelCriterion:add(criterion, weight)
+function ParallelCriterion_jielei:add(criterion, weight)
    assert(criterion, 'no criterion provided')
    weight = weight or 1
    table.insert(self.criterions, criterion)
@@ -35,7 +35,7 @@ end
 
 ----------------------------------------------------------------------
 -- this wiil be called by the forward function
-function ParallelCriterion:updateOutput(input, target, indicator)
+function ParallelCriterion_jielei:updateOutput(input, target, indicator)
    self.output = 0
    for i,criterion in ipairs(self.criterions) do
       local target = self.repeatTarget and target or target[i]
@@ -46,7 +46,7 @@ end
 
 
 -- This will be called by the backward function
-function ParallelCriterion:updateGradInput(input, target, indicator)
+function ParallelCriterion_jielei:updateGradInput(input, target, indicator)
    -- make sure gradInput has the same structure with the input,
    -- regardless it is a table contain Tensors of simply a Tensor.
    -- then initialize its value to zero
@@ -60,7 +60,7 @@ function ParallelCriterion:updateGradInput(input, target, indicator)
    return self.gradInput
 end
 
-function ParallelCriterion:type(type, tensorCache)
+function ParallelCriterion_jielei:type(type, tensorCache)
    self.gradInput = {}
    return parent.type(self, type, tensorCache)
 end
