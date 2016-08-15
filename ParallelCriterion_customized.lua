@@ -26,9 +26,12 @@ end
 -- L1 = nn.CrossEntropyCriterion()
 -- L2 = nn.CrossEntropyCriterion()
 -- m = nn.ParallelCriterion():add(L1):add(L2)
--- m:forward({x_1, x_2}, {y_1, y_2}, {1, 1}) --with L = 1*L1 + 1*L2
--- m:forward({x_1, x_2}, {y_1, y_2}, {1, 0}) --with L = 1*L1 + 0*L2
--- m:backward({x_1, x_2}, {y_1, y_2}, {1, 0})
+-- m:forward({x_1, x_2}, {y_1, y_2}, {indicator[1], indicator[2]}) -- where indicator={1,1}  -- with Loss = 1*L1 + 1*L2
+-- m:forward({x_1, x_2}, {y_1, y_2}, {indicator[1], indicator[2]}) -- where indicator={1,0}  -- with Loss = 1*L1 + 0*L2
+-- m:backward({x_1, x_2}, {y_1, y_2}, {indicator[1], indicator[2]}) -- where indicator={1,0} -- 
+
+-- Tips
+-- set indicator ={1, 1} for all examples to retain the original nn.ParallelCriterion()
 
 ----------------------------------------------------------------------
 -- this wiil be called by the forward function
